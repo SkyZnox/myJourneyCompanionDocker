@@ -1,5 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // On submit. Create a JSON object with all the questions and answers and send it with a fetch
+    const form = document.getElementById("createForm");
+
+// add event listener on each input fields
+    const inputs = form.querySelectorAll("input");
+    inputs.forEach(function (input, index) {
+        input.addEventListener("input", updateQuiz)
+    })
+
+
 // Fonction pour ajouter une div "response"
     function addResponse() {
         const responsesDiv = this.parentElement;
@@ -20,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update delete answer button
         responseCount = responsesDiv.querySelectorAll('.response').length;
-        if (responseCount > 2){
+        if (responseCount > 2) {
             responsesDiv.querySelectorAll('.response').forEach((response, index) => {
                 const button = response.querySelector('.deleteResponse');
                 button.disabled = false;
@@ -69,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update delete question button
         questionCount = questionsDiv.querySelectorAll('.question').length;
-        if (questionCount > 1){
+        if (questionCount > 1) {
             questionsDiv.querySelectorAll('.question').forEach((question, index) => {
                 const button = question.querySelector('.deleteQuestion');
                 button.disabled = false;
@@ -84,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let responseCount = responsesDiv.querySelectorAll('.response').length;
 
         // Supprimer la réponse
-        if (responseCount > 2){
+        if (responseCount > 2) {
             responseDiv.remove();
             updateDeleteResponseButtons();
         }
@@ -104,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update delete answer button
         responseCount = responsesDiv.querySelectorAll('.response').length;
-        if (responseCount === 2){
+        if (responseCount === 2) {
             responsesDiv.querySelectorAll('.response').forEach((response, index) => {
                 const button = response.querySelector('.deleteResponse');
                 button.disabled = true;
@@ -128,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Update delete question button
         questionCount = questionsDiv.querySelectorAll('.question').length;
-        if (questionCount === 1){
+        if (questionCount === 1) {
             questionsDiv.querySelectorAll('.question').forEach((question, index) => {
                 const button = question.querySelector('.deleteQuestion');
                 button.disabled = true;
@@ -183,14 +193,10 @@ document.addEventListener('DOMContentLoaded', function () {
     addQuestionButton.addEventListener('click', addQuestion);
 });
 
-// On submit. Create a JSON object with all the questions and answers and send it with a fetch
-const form = document.getElementById("createForm");
 
-// add event listener on each input fields
-const inputs = form.querySelectorAll("input");
-inputs.forEach(function (input, index) {
-    input.addEventListener("input", updateQuiz)
-})
+
+
+
 
 function updateQuiz() {
     const quizTitle = document.querySelector('input[name="quizTitle"]').value;
@@ -204,7 +210,7 @@ function updateQuiz() {
 
         // take all the answers div element
         const answerElements = questionElement.querySelectorAll(".response");
-        answerElements.forEach(function(answerElement, subIndex) {
+        answerElements.forEach(function (answerElement, subIndex) {
             const answerText = answerElement.querySelector('input[name="response"]').value;
             const isGoodAnswer = answerElement.querySelector('input[type="checkbox"]').checked;
 
