@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main>
+  <div class="profile">
+    <div class="user-icon">
+      <div class="plus-icon">
+        <div class="vertical"></div>
+        <div class="horizontal"></div>
+      </div>
+      <div class="icon"></div>
+    </div>
+
+    <div class="container red-container">
+        <form th:action="@{/users/update}" method="post">
+          <input type="hidden" name="uuid" th:value="${user.getUuid()}">
+          <div class="username">
+            <input type="text" name ="username" th:value="${user.getUsername()}" />
+            <img width="25px" height="25px" src="https://img.icons8.com/ios/50/pencil--v1.png" alt="pencil--v1"/>
+          </div>
+
+          <div class="in-container">
+            <label for="email-in">
+              Email :
+            </label>
+            <input type="email" name="email" id="email-in" class="text-input small-input" th:value="${user.getEmail()}"/>
+          </div>
+
+          <div>
+            <input class="button boxed-button" type="submit" value="Modify"/>
+          </div>
+        </form>
+    </div>
+  </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

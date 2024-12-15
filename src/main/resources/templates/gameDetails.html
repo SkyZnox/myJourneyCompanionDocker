@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="game-details">
+    <div class="hero-banner">
+        <img th:src="${game.getUrlCover()}" th:alt="${game.getName()} + 'game image'"/>
+        <span th:text="${game.getName()}"></span>
+    </div>
+    <div class="details">
+        <div class="card">
+            <div class="infos">
+                <div class="top">
+                    <div class="studio-date">
+                        <span class="studio" th:text="${game.getStudio()}"></span>
+                        <span> - </span>
+                        <span class="released-date"
+                              th:text="${game.getReleaseDate().getMonth()+1 + ' ' + game.getReleaseDate().getDate() + ', ' + game.getReleaseDate().getYear()}"></span>
+                    </div>
+                    <form id="rating-form" method="post" th:action="@{games/createMark}">
+                        <div class="stars">
+                            <div class="half-star-left" data-rating="0.5"></div>
+                            <div class="half-star-right" data-rating="1"></div>
+                            <div class="half-star-left" data-rating="1.5"></div>
+                            <div class="half-star-right" data-rating="2"></div>
+                            <div class="half-star-left" data-rating="2.5"></div>
+                            <div class="half-star-right" data-rating="3"></div>
+                            <div class="half-star-left" data-rating="3.5"></div>
+                            <div class="half-star-right" data-rating="4"></div>
+                            <div class="half-star-left" data-rating="4.5"></div>
+                            <div class="half-star-right" data-rating="5"></div>
+<!--                            <div class="star" data-rating="2"></div>-->
+<!--                            <div class="star" data-rating="3"></div>-->
+<!--                            <div class="star" data-rating="4"></div>-->
+<!--                            <div class="star" data-rating="5"></div>-->
+                            <input name="uuidVideoGame" type="hidden" th:value="${game.getUuid()}">
+                                <input sec:authorize="!isAuthenticated()" name="uuidAuthor" type="hidden" value="none">
+                                <input sec:authorize="isAuthenticated()" name="uuidAuthor" type="hidden" th:value="${user.getUuid()}">
+
+                            <input name="givenMark" type="hidden" value="0">
+                        </div>
+                    </form>
+                    <script>
+                        // const stars = document.querySelectorAll('.star');
+                        // const markInput = document.querySelector('input[name="mark"]');
+                        //
+                        // stars.forEach(star => {
+                        //     star.addEventListener('mouseenter', () => {
+                        //         const rating = star.getAttribute('data-rating');
+                        //         markInput.value = rating;
+                        //         // Vous pouvez également ajouter du code pour mettre en surbrillance les étoiles au survol si vous le souhaitez.
+                        //     });
+                        //
+                        //     star.addEventListener('click', () => {
+                        //         // Remettre à zéro la valeur de l'input lorsque la souris quitte les étoiles.
+                        //         console.log(markInput.value)
+                        //     });
+                        // });
+                    </script>
+
+                </div>
+                <p class="description" th:text="${game.getDescription()}"></p>
+            </div>
+            <div class="separation-line"></div>
+            <div class="quiz">
+                <h2>All the quiz about this game</h2>
+                <div class="quiz-list">
+                    <div th:each="quiz: ${quiz}" class="quiz-item">
+                        <a th:href="'/answerQuiz?uuid=' + ${quiz.getUuidQuiz()}" class="quiz-answer">
+                            <h3 th:text="${quiz.getQuizTitle()}"></h3>
+                            <span th:text="${quiz.getAuthor().getUsername()}"></span>
+                        </a>
+                        <div th:if="${quiz.getAuthor().getUsername()} == ${#authentication.getName()}" class="quiz-delete">
+                            <a th:href="'/deleteQuiz?uuidQuiz=' + ${quiz.getUuidQuiz()}"
+                               class="boxed-button">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="'/createQuiz?uuid=' + ${game.getUuid()}" class="button boxed-button">Create a new quiz</a>
+            </div>
+        </div>
+        <div class="score" th:text="${game.getMark()}"></div>
+        <div class="check">
+            <a th:href="'/addDonelist?videoGameUUID=' + ${game.getUuid()}" title="Add to Done List">
+                <img th:src="${user == null || !user.getDoneList().contains(game) ? 'https://img.icons8.com/ios-filled/50/000000/unchecked-checkbox.png' : 'https://img.icons8.com/ios-filled/50/checked-checkbox.png'}"
+                     alt="checkbox"/>
+            </a>
+        </div>
+
+        <div class="save">
+            <a th:href="'/addTodolist?videoGameUUID=' + ${game.getUuid()}" class="save-icon" title="Add to To Do List">
+                <img th:src="${user == null || !user.getToDoList().contains(game)} ? 'https://img.icons8.com/ios/50/000000/bookmark-ribbon--v1.png' : 'https://img.icons8.com/ios-filled/50/000000/bookmark-ribbon.png'"
+                     alt="bookmark"/>
+            </a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

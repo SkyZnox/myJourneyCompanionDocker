@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main>
+<!--    <div class="title">-->
+<!--        Sign In to My Journey Companion-->
+<!--    </div>-->
+
+    <h1>
+        Sign In to <span class="orangeStyle"> My Journey Companion </span>
+    </h1>
+
+
+    <div>
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+
+        <div class="container red-container">
+            <form th:action="@{/login}" method="post">
+                <div class="in-container">
+                    <label for="username-in">
+                        Username :
+                    </label>
+                    <input type="text" name="username" id="username-in" class="text-input small-input"/>
+                </div>
+                <div class="in-container">
+                        <label for="password-in">
+                            Password :
+                        </label>
+<!--                        <div><a> Forgot Password ? </a></div>-->
+
+                    <input type="password" name="password" id="password-in" class="text-input small-input"/>
+                </div>
+                <div>
+                    <input class="button boxed-button" type="submit" value="Sign In"/>
+                </div>
+            </form>
+            <div>
+                <div class="notRegisteredOrAlreadyRegistered">
+                    Not registered ? <a class="button" href="signup">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

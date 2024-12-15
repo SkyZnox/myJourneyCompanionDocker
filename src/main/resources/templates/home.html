@@ -1,0 +1,40 @@
+    <!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <main class="home">
+        <div class="top">
+            <img src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/wii_24/SI_Wii_SuperMarioGalaxy_image1600w.jpg" alt="random game image"/>
+            <div class="description">
+                <span>Track video games you've played.</span>
+                <span>Save those you want to play.</span>
+                <span>Tell your friends what's good.</span>
+            </div>
+        </div>
+        <div class="game-grid">
+            <div class="grid">
+                <a th:each="i: ${#numbers.sequence(0, 8)}" th:href="'/games?uuid=' + ${games.get(i).getUuid()}" class="game-card">
+                    <div class="img-container">
+                        <img th:src="${games.get(i).getUrlCover()}" th:alt="${games.get(i).getName()} + 'Game image'"/>
+                    </div>
+                    <span th:text="${games.get(i).getName()}"></span>
+                </a>
+            </div>
+            <a href="/games/all">
+                <div class="shadow-effect">
+                    <span>Show more</span>
+                    <div class="arrow">
+                        <div class="left"></div>
+                        <div class="right"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

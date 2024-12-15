@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="quiz answer-quiz">
+
+    <div class="big-container container red-container">
+        <h1 th:text="${quiz.getGame().getName()}"></h1>
+        <h2 th:text="${quiz.getQuizTitle()}"></h2>
+        <div class="form-result">
+            <div> Your score : <span th:text="${totalPoints}"></span> / <span th:text="${quiz.questions.size()}"></span>
+            </div>
+            <div class="questions">
+                <div th:each="question, questionIndex : ${quiz.questions}" class="question">
+                    <h3 th:text="'Question ' + (${questionIndex.index + 1})" class="question-title"></h3>
+                    <div th:text="${question.getQuestionTitle()}" class="question-title"></div>
+                    <div class="responses">
+                        <div th:each="answer, answerIndex: ${question.answers}" class="response">
+                            <input type="checkbox"
+                                   th:name="'answer' + (${questionIndex.index + 1}) + '-' + (${answerIndex.index + 1})"
+                                   th:id="'answer' + (${questionIndex.index + 1}) + '-' + (${answerIndex.index + 1})"
+                                   th:checked="${userSelectedAnswers.contains(answer.getAnswerTitle())}" disabled
+                                   style="cursor: default">
+                            <label th:text="${answer.getAnswerTitle()}"
+                                   th:for="'answer' + (${questionIndex.index + 1}) + '-' + (${answerIndex.index + 1})"></label>
+
+                            <span th:if="${answer.isCorrect} and ${userSelectedAnswers.contains(answer.getAnswerTitle())}"
+                                  class="tick"
+                                  style="color: green;">&#10004;</span>
+                            <span th:if="${answer.isCorrect} and ${!userSelectedAnswers.contains(answer.getAnswerTitle())}"
+                                  class="tick"
+                                  style="color: red;">&#10008;</span>
+                            <span th:if="${!answer.isCorrect} and ${userSelectedAnswers.contains(answer.getAnswerTitle())}"
+                                  class="tick"
+                                  style="color: red;">&#10008;</span>
+                        </div>
+                        <div class="good-answer">Good answer(s)</div>
+                        <div th:each="goodAnswer : ${question.answers}" th:if="${goodAnswer.isCorrect}"
+                             class="response">
+                            <input type="checkbox" checked disabled style="cursor: default">
+                            <label th:text="${goodAnswer.getAnswerTitle()}"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="exit">
+                <a th:href="'/games?uuid=' + ${quiz.getGame().getUuid()}">
+                    <button class="boxed-button">Exit</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

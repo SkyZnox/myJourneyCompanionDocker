@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="about">
+    <h1>About us</h1>
+    <div class="details">
+        <div class="card">
+            <div class="infos">
+                <div class="top">
+                    <div class="studio-date">
+                        <span class="studio">DELRAN--GARRIC Hélène, ROLLET Quentin, COSTE Matt</span>
+                        <span> | </span>
+                        <span class="released-date">CY Tech Students</span>
+                    </div>
+
+
+                </div>
+                <p class="description">We're a group of students who love video games. That's why we decided to create
+                    our own website, enabling us to list games, rate them, insert them into lists and also create
+                    quizzes to test our knowledge.
+                    So, this site is made by fans, for other fans.</p>
+                
+                
+
+            </div>
+            <!--            <div class="separation-line"></div>-->
+        </div>
+
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

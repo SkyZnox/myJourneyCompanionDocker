@@ -1,0 +1,29 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: my_journey_db
+    environment:
+      MYSQL_ROOT_PASSWORD: yourMySQLpassword
+      MYSQL_DATABASE: db_my_journey_companion
+      MYSQL_USER: yourMySQLusername
+      MYSQL_PASSWORD: yourMySQLpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DATABASE_USERNAME: yourMySQLusername
+        DATABASE_PASSWORD: yourMySQLpassword
+    container_name: my_journey_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  db_data:

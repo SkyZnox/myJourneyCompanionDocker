@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+
+    <header th:replace="~{fragments/header :: header}"></header>
+
+    <main>
+        <h1>Video Games</h1>
+        <span th:text="${videoGames}">Video games ...</span>
+    </main>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

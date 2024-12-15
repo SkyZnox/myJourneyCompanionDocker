@@ -1,0 +1,24 @@
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #242C3D;
+    padding: 15px;
+    height: 100px;
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+
+        li {
+            font-size: 1.5em;
+            margin-right: 30px;
+        }
+    }
+}
